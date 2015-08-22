@@ -17,7 +17,19 @@ class TicTacToe:
     def Winner(self):
         winx = False 
         wino = False
-        if self.GetPosition(0, 0) == 'X' and self.GetPosition(0, 1) == 'X' and self.GetPosition(0, 2) == 'X':
+        for i in range(3):
+            if (self.GetPosition(i, 0) == 'X' and
+                self.GetPosition(i, 1) == 'X' and
+                self.GetPosition(i, 2) == 'X'):
+                    winx = True
+            if (self.GetPosition(0, i) == 'X' and
+                self.GetPosition(1, i) == 'X' and
+                self.GetPosition(2, i) == 'X'):
+                    winx = True
+ 
+        if self.GameOver(0, 0) == 'X' and self.GetPosition(1, 1) == 'X' and self.GetPosition(2, 2) == 'X':
+            winx = True
+        if self.GameOver(0, 2) == 'X' and self.GetPosition(1, 1) == 'X' and self.GetPosition(2, 0) == 'X':
             winx = True
         if ((self.state[0]== 'X' and self.state[1]== 'X' and self.state[2]== 'X') or
            (self.state[3]== 'X' and self.state[4]== 'X' and self.state[5]== 'X') or
