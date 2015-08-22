@@ -17,6 +17,8 @@ class TicTacToe:
     def Winner(self):
         winx = False 
         wino = False
+        if self.GetPosition(0, 0) == 'X' and self.GetPosition(0, 1) == 'X' and self.GetPosition(0, 2) == 'X':
+            winx = True
         if ((self.state[0]== 'X' and self.state[1]== 'X' and self.state[2]== 'X') or
            (self.state[3]== 'X' and self.state[4]== 'X' and self.state[5]== 'X') or
            (self.state[6]== 'X' and self.state[7]== 'X' and self.state[8]== 'X') or
