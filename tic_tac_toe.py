@@ -1,7 +1,31 @@
 #! /usr/bin/python3
 
+import mysql.connector
+
+def database_proof_of_concept():
+    db = mysql.connector.connect(host = 'localhost',
+                    user = 'mb1a',
+                    password = '',
+                    db = 'c9')
+    if db.is_connected():
+        print('We win!')
+    else:
+        print("We is phucked, yo!")
+    cursor = db.cursor()
+    query = ("SELECT * FROM hello_world")
+    insert = ("INSERT INTO hello_world (name) VALUES ('Thorson')")
+    cursor.execute(insert)
+    db.commit()
+    cursor.execute(query)
+    for x in cursor:
+        print(x)
+    
+    db.close()
+
+
 def main():
     print("Main called.")
+    
 
 class TicTacToe:
     def __init__(self):
@@ -26,29 +50,25 @@ class TicTacToe:
                 self.GetPosition(1, i) == 'X' and
                 self.GetPosition(2, i) == 'X'):
                     winx = True
- 
-        if self.GameOver(0, 0) == 'X' and self.GetPosition(1, 1) == 'X' and self.GetPosition(2, 2) == 'X':
+        if self.GetPosition(0, 0) == 'X' and self.GetPosition(1, 1) == 'X' and self.GetPosition(2, 2) == 'X':
             winx = True
-        if self.GameOver(0, 2) == 'X' and self.GetPosition(1, 1) == 'X' and self.GetPosition(2, 0) == 'X':
+        if self.GetPosition(0, 2) == 'X' and self.GetPosition(1, 1) == 'X' and self.GetPosition(2, 0) == 'X':
             winx = True
-        if ((self.state[0]== 'X' and self.state[1]== 'X' and self.state[2]== 'X') or
-           (self.state[3]== 'X' and self.state[4]== 'X' and self.state[5]== 'X') or
-           (self.state[6]== 'X' and self.state[7]== 'X' and self.state[8]== 'X') or
-           (self.state[0]== 'X' and self.state[3]== 'X' and self.state[6]== 'X') or
-           (self.state[1]== 'X' and self.state[4]== 'X' and self.state[7]== 'X') or
-           (self.state[2]== 'X' and self.state[5]== 'X' and self.state[8]== 'X') or
-           (self.state[0]== 'X' and self.state[4]== 'X' and self.state[8]== 'X') or
-           (self.state[2]== 'X' and self.state[4]== 'X' and self.state[6]== 'X')):
-           winx = True
-        if ((self.state[0]== 'O' and self.state[1]== 'O' and self.state[2]== 'O') or
-           (self.state[3]== 'O' and self.state[4]== 'O' and self.state[5]== 'O') or
-           (self.state[6]== 'O' and self.state[7]== 'O' and self.state[8]== 'O') or
-           (self.state[0]== 'O' and self.state[3]== 'O' and self.state[6]== 'O') or
-           (self.state[1]== 'O' and self.state[4]== 'O' and self.state[7]== 'O') or
-           (self.state[2]== 'O' and self.state[5]== 'O' and self.state[8]== 'O') or
-           (self.state[0]== 'O' and self.state[4]== 'O' and self.state[8]== 'O') or
-           (self.state[2]== 'O' and self.state[4]== 'O' and self.state[6]== 'O')):
-           wino = True
+            
+        for i in range(3):
+           if (self.GetPosition(i, 0) == 'O' and
+                self.GetPosition(i, 1) == 'O' and
+                self.GetPosition(i, 2) == 'O'):
+                    wino = True
+           if (self.GetPosition(0, i) == 'O' and
+                self.GetPosition(1, i) == 'O' and
+                self.GetPosition(2, i) == 'O'):
+                    wino = True
+        if self.GetPosition(0, 0) == 'O' and self.GetPosition(1, 1) == 'O' and self.GetPosition(2, 2) == 'O':
+            wino = True
+        if self.GetPosition(0, 2) == 'O' and self.GetPosition(1, 1) == 'O' and self.GetPosition(2, 0) == 'O':
+            wino = True
+
         if (winx and wino) or  (not winx and not wino):
             return None
         elif winx:
